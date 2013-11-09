@@ -613,6 +613,7 @@ static int decode_type1012(rtcm_t *rtcm)
             cp1=adjcp(rtcm,sat,0,ppr1*0.0005/lam1);
             rtcm->obs.data[index].L[0]=pr1/lam1+cp1;
         }
+        rtcm->obs.data[index].freq=freq; /* RG Edit: fix 1012 Glonass bug */
         rtcm->obs.data[index].LLI[0]=lossoflock(rtcm,sat,0,lock1);
         rtcm->obs.data[index].SNR[0]=snratio(cnr1*0.25);
         rtcm->obs.data[index].code[0]=code1?CODE_L1P:CODE_L1C;
