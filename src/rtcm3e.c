@@ -692,7 +692,8 @@ static int encode_type1012(rtcm_t *rtcm, int sync)
     for (j=0;j<rtcm->obs.n&&nsat<MAXOBS;j++) {
         sat=rtcm->obs.data[j].sat;
         if (satsys(sat,&prn)!=SYS_GLO) continue;
-        fcn=fcn_glo(sat,rtcm);
+        /* fcn=fcn_glo(sat,rtcm);   RG Edit: Only seems to work when 1020 messages are present */
+        fcn=rtcm->obs.data[j].freq; /* RG Edit: pulls glonass freq variable straight from the rtcm3 decoder */
         
         /* generate obs field data glonass */
         gen_obs_glo(rtcm,rtcm->obs.data+j,fcn,&code1,&pr1,&ppr1,&lock1,&amb,
