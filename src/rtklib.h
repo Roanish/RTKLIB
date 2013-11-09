@@ -451,7 +451,7 @@ typedef struct {        /* time struct */
 
 typedef struct {        /* observation data record */
     gtime_t time;       /* receiver sampling time (GPST) */
-    unsigned char sat,rcv; /* satellite/receiver number */
+    unsigned char sat,rcv,freq; /* satellite/receiver numberl; RG Edit: added freq for glonass freq bug in 1012 msg. */
     unsigned char SNR [NFREQ+NEXOBS]; /* signal strength (0.25 dBHz) */
     unsigned char LLI [NFREQ+NEXOBS]; /* loss of lock indicator */
     unsigned char code[NFREQ+NEXOBS]; /* code indicator (CODE_???) */
