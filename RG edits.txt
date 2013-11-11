@@ -1,0 +1,18 @@
+RG Edits
+--------------
+
+2013-11-10    Files: src/rtcm3.c , src/rtcm3e.c , src/rtklib.h
+              Goal: To have correct sat channels included in 1012 Glonass messages.
+              Issue:  Identified by decoding messages using gpsd's "gpsdecode" utility.
+                      1012 messages contain a channel number prior to being decoded with str2str, but are assigned
+                      null value -7 after encoding via rtcm3e.c
+              
+                      Problem was found to be in the way the channel number is assigned to the variable 'fcn' in 1012
+                      message. The vaule of "freq" assigned in the rtcm3.c decoder is not passed to a constant for rtcm3e.c 
+                      to use in the encoding process.
+              Fix Summary:  * added new integer constant to obsd_t in rtklib.h.
+                            * in rtcm3.c, staticaly assign decoded value of 'freq' to this obsd_t constant.
+                            * in rtcm3e.c, statically assign value of obsd_t 'freq' constant to 'fcn' instead of 
+                            relying on the 1020 ephemerides method used in original code.
+                      
+              
